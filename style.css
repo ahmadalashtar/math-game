@@ -62,7 +62,7 @@ p{
 }
 #bar{
     position: relative;
-    width: 100% - 10px;
+    width: 100%;
     height: 10px;
     background-color:green;
 
