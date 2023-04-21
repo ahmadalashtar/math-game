@@ -16,7 +16,7 @@ html{
     position: absolute;
     width: 80%;
     height: 100px;
-    top:10%;
+    top:15%;
     left:10%;
 }
 #buttons{
@@ -48,5 +48,24 @@ p{
     height: 20px;
         line-height: 20px;
         margin-bottom: 15px;        
+
+}
+
+#bigBar{
+    position: absolute;
+    width: 90%;
+    height: 20px;
+    background-color: gray;
+    border-radius: 10px;
+    top: 5px;
+    margin-left: 30px;
+    margin-right: 30px;
+    left: 0;
+}
+#bar{
+    position: relative;
+    width: 100% - 10px;
+    height: 10px;
+    background-color: gray;
 
 }
