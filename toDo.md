@@ -1,0 +1,1 @@
+Rewrite startBar with Date.now();
