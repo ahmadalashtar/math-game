@@ -13,19 +13,34 @@ const timeOut = new Event("timeOut");
 bar.addEventListener(
     "timeOut",
     (e) => {
-        
+        console.log("Bar finished!")
     },
     false
   );
-const barFnc = function(){
-    bar.style.width = `${bar.clientWidth - 1}px`
-    if (bar.clientWidth==0) {
-         clearInterval(barInterval)
-         bar.dispatchEvent(timeOut);
-    }
-}
-const startBar = function(){
-const barInterval = setInterval(barFnc, 1);
-}
 
 
+
+// const startBar = function(milli){
+//     let originalWidth = bar.clientWidth;
+//     console.log(originalWidth)
+//     // let decrement = originalWidth/(time*10);
+//     let decrement = 1;
+//     let newWidth = originalWidth;
+//     const barFnc = function(){
+//         bar.style.width = `${newWidth-decrement}px`
+//         newWidth-=decrement
+//         if (bar.clientWidth<=originalWidth*0.4){
+//             if (bar.style.backgroundColor!="red"){
+//                 bar.style.backgroundColor="red"
+//             }
+//         }
+//         if (newWidth<decrement) {
+//             bar.style.backgroundColor='transparent'
+//              clearInterval(barInterval)
+//              bar.dispatchEvent(timeOut);
+//         }
+//     }
+//     const barInterval = setInterval(barFnc, 1);
+// }
+
+// startBar(1000);
