@@ -3,13 +3,15 @@ html{
 }
 #game{
     position: absolute;
-    top:20%;
-    left:30%;
-    height: 500px;
-    width: 615px;
+    top:10vh;
+    left:10vw;
+    height: 80vh;
+    width: 80vw;
     background-color:white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
+    min-height: 500px;
+    min-width: none;
 }
 #calculation{
     background-color:#ffed9e;
@@ -18,11 +20,6 @@ html{
     height: 100px;
     top:15%;
     left:10%;
-}
-#buttons{
-    width: fit-content;
-    position: relative;
-    top:40%;
 }
 
 #start{
@@ -43,11 +40,12 @@ button{
     color: white;
     border: none;
     border-radius: 10px;
+    text-align: center;
 }
 p{
     height: 20px;
-        line-height: 20px;
-        margin-bottom: 15px;        
+    line-height: 20px;
+    margin-bottom: 15px;        
 
 }
 
@@ -68,4 +66,8 @@ p{
     height: 10px;
     background-color: gray;
 
+}
+#buttons{
+    position: relative;
+    top:50%;
 }
