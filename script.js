@@ -18,29 +18,30 @@ bar.addEventListener(
     false
   );
 
+  const startBar = function(seconds){
+  let test = Date.now()
+  let start = Date.now();
+  let originalWidth = bar.clientWidth;
+  let decrement = originalWidth/(seconds);
+  let newWidth = originalWidth;
+  let difference = 0;
+  const barFnc = function(){
+    difference = Date.now()-start;
+    if (difference>=1000){
+      start += difference
+      bar.style.width = `${newWidth-decrement}px`
+      newWidth-=decrement
+      if (newWidth<1) {
+        bar.style.backgroundColor='transparent'
+        clearInterval(barInterval)
+        bar.dispatchEvent(timeOut);
+      }
+      }
+      
+    
 
+  }
+  const barInterval = setInterval(barFnc, 1);
+}
 
-// const startBar = function(milli){
-//     let originalWidth = bar.clientWidth;
-//     console.log(originalWidth)
-//     // let decrement = originalWidth/(time*10);
-//     let decrement = 1;
-//     let newWidth = originalWidth;
-//     const barFnc = function(){
-//         bar.style.width = `${newWidth-decrement}px`
-//         newWidth-=decrement
-//         if (bar.clientWidth<=originalWidth*0.4){
-//             if (bar.style.backgroundColor!="red"){
-//                 bar.style.backgroundColor="red"
-//             }
-//         }
-//         if (newWidth<decrement) {
-//             bar.style.backgroundColor='transparent'
-//              clearInterval(barInterval)
-//              bar.dispatchEvent(timeOut);
-//         }
-//     }
-//     const barInterval = setInterval(barFnc, 1);
-// }
-
-// startBar(1000);
+// startBar(3);
