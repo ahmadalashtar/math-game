@@ -1,9 +1,20 @@
 //                                                          elemenets
-let buttons = document.getElementById('buttons');
+let buttons = document.querySelectorAll('button');
 let game = document.getElementById('game');
 let calculation = document.getElementById('calculation')
 let bar = document.getElementById('bar')
 let p = document.querySelector('p')
+//                                                          Buttons Event Listeners
+// https://fjolt.com/article/javascript-multiple-elements-addeventlistener
+
+let clickEvent = (event)=>{
+  window.dispatchEvent(new KeyboardEvent('keydown',{'key':event.target.innerText}));
+}
+
+buttons.forEach(button =>{
+  button.addEventListener('click',clickEvent);
+})
+
 //                                                           Bar Code
 const timeOut = new Event("timeOut");
 bar.addEventListener(
@@ -17,7 +28,7 @@ bar.addEventListener(
   let barInterval;
   const startBar = function(seconds){
     bar.style.width='100%'
-  let test = Date.now()
+  let test = Date.now();
   let start = Date.now();
   let originalWidth = bar.clientWidth;
 
@@ -35,8 +46,7 @@ bar.addEventListener(
         console.log(Date.now()-test)
         bar.style.backgroundColor='transparent'
         clearInterval(barInterval)
-        bar.dispatchEvent(timeOut);
-      }
+        bar.dispatchEvent(timeOut);}
       }
       
     
@@ -84,7 +94,7 @@ const getNumbersAndSum = function(numOfnumbers){
 let numbers;
 let answer;
 const newRound = function(){
-  startBar(3);
+  startBar(5);
 [ numbers, answer] =getNumbersAndSum(2);
 let pArray = [];
 numbers.forEach((number,index)=>{
@@ -101,34 +111,10 @@ numbers.forEach((number,index)=>{
 })
 p.innerText = pArray.join(' ')
 }
-newRound();
 window.onkeydown = (e)=>{
-  let key = e.keyCode;
-  if (answer==0 && (key==96 || key==48 )){
+  if (answer==e.key){
     clearInterval(barInterval); newRound(); 
   }
-  else if (answer==1 && (key==97 || key==49 )){
-    clearInterval(barInterval); newRound();
-  } 
-  else if (answer==2 && (key==98 || key==50 )){
-    clearInterval(barInterval); newRound();
-  }
-  else if (answer==3 && (key==99 || key==51 )){
-    clearInterval(barInterval); newRound();
-  }
-  else if (answer==4 && (key==100 || key==52 )){
-    clearInterval(barInterval); newRound();
-  }
-  else if (answer==5 && (key==101 || key==53 )){
-    clearInterval(barInterval);newRound();
-  }
-  else if (answer==6 && (key==102 || key==54 )){
-    clearInterval(barInterval); newRound();  }
-  else if (answer==7 && (key==103 || key==55 )){
-    clearInterval(barInterval); newRound();  }
-  else if (answer==8 && (key==104 || key==56 )){
-    clearInterval(barInterval); newRound();  }
-  else if (answer==9 && (key==105 || key==57 )){
-    clearInterval(barInterval); newRound();  }
 }
 
+newRound();

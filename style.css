@@ -38,9 +38,12 @@ button{
     margin-right: 10px;
     margin-top: 10px;
     color: white;
-    border: none;
     border-radius: 10px;
     text-align: center;
+}
+button:hover{
+    background-color: blue;
+    cursor: pointer;
 }
 p{
     height: 20px;
