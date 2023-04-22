@@ -90,12 +90,13 @@ const getNumbersAndSum = function(numOfnumbers){
   return [array,count]
 }
 
-// startBar(8);
 let numbers;
 let answer;
-const newRound = function(){
-  startBar(5);
-[ numbers, answer] =getNumbersAndSum(2);
+let time = 4;
+let numberOfDigits = 2;
+const newRound = function(time,numOfDigits ){
+  startBar(time);
+[ numbers, answer] =getNumbersAndSum(numOfDigits);
 let pArray = [];
 numbers.forEach((number,index)=>{
   if (number>-1 && index==0 ){
@@ -113,8 +114,9 @@ p.innerText = pArray.join(' ')
 }
 window.onkeydown = (e)=>{
   if (answer==e.key){
-    clearInterval(barInterval); newRound(); 
+    clearInterval(barInterval); 
+    newRound(time,numberOfDigits); 
   }
 }
 
-newRound();
+newRound(time,numberOfDigits);
