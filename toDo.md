@@ -5,3 +5,15 @@ Rewrite startBar with Date.now();
 Points = (Number of digits entered) x (time / Time taken)
 
 points and game difficulty
+
+checkmark when correct answer, red otherwise
+
+home screen
+    start button
+
+go again screen
+
+show gained points per round (animation)
+
+time bonus
+

@@ -18,28 +18,40 @@ buttons.forEach(button =>{
 //                                                           Bar Code
 const timeOut = new Event("timeOut");
 bar.addEventListener("timeOut", (e) => { 
-  alert('Loss!');
-  time = initTime;
-  numberOfDigits=initNmberOfDigits;
-  newRound(time,numberOfDigits)
+  if (time>1){
+    window.dispatchEvent(new KeyboardEvent('keydown',{'key':'i'}));
+  }
+  else {
+    alert('Loss!');
+    alert(`points: ${points.toFixed(2)}`)
+    points = 0;
+    time = initTime;
+    numberOfDigits=initNmberOfDigits;
+    newRound(time,numberOfDigits)
+    alert("implement Go to home screen here")
+  }
  }, false);
 
 let barInterval;
 
 //                                                        Start bar
+let barDate;
+let barStartDate;
 const startBar = function(seconds){
+  bar.style.backgroundColor='green'
   bar.style.width='100%'
   let test = Date.now();
-  let start = Date.now();
+  barDate = Date.now();
+  barStartDate= Date.now();
   let originalWidth = bar.clientWidth;
   let decrement = originalWidth/(seconds);
   // originalWidth -= originalWidth%decrement;
   let newWidth = originalWidth;
   let difference = 0;
   const barFnc = function(){
-    difference = Date.now()-start;
+    difference = Date.now()-barDate;
     if (difference>=1000){
-      start += difference
+      barDate += difference
       bar.style.width = `${newWidth-decrement}px`
       newWidth-=decrement
       if (newWidth<=0) {
@@ -90,11 +102,13 @@ const getNumbersAndSum = function(numOfnumbers){
 
 let numbers;
 let answer;
-let time = 5;
-let initTime = 5;
+let initTime = 10;
+let time = initTime;
 let initNmberOfDigits = 2;
-let numberOfDigits = 2;
+let numberOfDigits = initNmberOfDigits;
 let reachedMax = false;
+let takenTime = 0;
+let points = 0; //numberOfDigits * takenTime
 //                                                          New Round
 const newRound = function(time,numOfDigits ){
   startBar(time);
@@ -115,13 +129,16 @@ numbers.forEach((number,index)=>{
 p.innerText = pArray.join(' ')
 }
 window.onkeydown = (e)=>{
+  let barStopDate = Date.now();
   if (answer==e.key){
+    takenTime = calculateTakenTime(barStartDate, barStopDate)
+    points += calculatePoints(numberOfDigits, takenTime)
     if (numberOfDigits>4){reachedMax=true} 
     else {numberOfDigits+=1};
-    if (reachedMax){time-=0.1;}
+    if (reachedMax){time-=0.05;}
   }
   else {
-    time-=1;
+    time-=0.3;
   }
 
   clearInterval(barInterval); 
@@ -130,3 +147,10 @@ window.onkeydown = (e)=>{
 }
 
 newRound(time,numberOfDigits);
+
+const calculateTakenTime = function(startDate,stopDate){
+  return stopDate-startDate;
+}
+const calculatePoints = function(numOfDigits,takenTime){
+  return numOfDigits/(takenTime/1000);
+}
