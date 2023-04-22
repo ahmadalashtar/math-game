@@ -17,21 +17,21 @@ buttons.forEach(button =>{
 
 //                                                           Bar Code
 const timeOut = new Event("timeOut");
-bar.addEventListener(
-    "timeOut",
-    (e) => {
-        console.log("Bar finished!")
-    },
-    false
-  );
+bar.addEventListener("timeOut", (e) => { 
+  alert('Loss!');
+  time = initTime;
+  numberOfDigits=initNmberOfDigits;
+  newRound(time,numberOfDigits)
+ }, false);
 
-  let barInterval;
-  const startBar = function(seconds){
-    bar.style.width='100%'
+let barInterval;
+
+//                                                        Start bar
+const startBar = function(seconds){
+  bar.style.width='100%'
   let test = Date.now();
   let start = Date.now();
   let originalWidth = bar.clientWidth;
-
   let decrement = originalWidth/(seconds);
   // originalWidth -= originalWidth%decrement;
   let newWidth = originalWidth;
@@ -46,15 +46,13 @@ bar.addEventListener(
         console.log(Date.now()-test)
         bar.style.backgroundColor='transparent'
         clearInterval(barInterval)
-        bar.dispatchEvent(timeOut);}
+        bar.dispatchEvent(timeOut);
       }
-      
-    
-
+    }
   }
   barInterval = setInterval(barFnc, 1);
 }
-
+//                                                                Get numbers and sum
 const getNumbersAndSum = function(numOfnumbers){
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -92,8 +90,12 @@ const getNumbersAndSum = function(numOfnumbers){
 
 let numbers;
 let answer;
-let time = 4;
+let time = 5;
+let initTime = 5;
+let initNmberOfDigits = 2;
 let numberOfDigits = 2;
+let reachedMax = false;
+//                                                          New Round
 const newRound = function(time,numOfDigits ){
   startBar(time);
 [ numbers, answer] =getNumbersAndSum(numOfDigits);
@@ -114,9 +116,17 @@ p.innerText = pArray.join(' ')
 }
 window.onkeydown = (e)=>{
   if (answer==e.key){
-    clearInterval(barInterval); 
-    newRound(time,numberOfDigits); 
+    if (numberOfDigits>4){reachedMax=true} 
+    else {numberOfDigits+=1};
+    if (reachedMax){time-=0.1;}
   }
+  else {
+    time-=1;
+  }
+
+  clearInterval(barInterval); 
+  newRound(time,numberOfDigits); 
+
 }
 
 newRound(time,numberOfDigits);
