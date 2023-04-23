@@ -1,12 +1,14 @@
 const express = require('express')
+const expressLayouts = require('express-ejs-layouts')
 const app = express()
 const port = 3000
 
-app.use(express.static('scripts'))
+app.use(expressLayouts)
 
-app.use(express.static('styles'))
+app.use(express.static('public'))
 
 app.set('view engine', 'ejs');
+app.set ('views','views')
 
 app.get('/', (req, res) => {
   res.render('index')
