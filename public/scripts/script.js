@@ -1,5 +1,5 @@
 //                                                          elemenets
-let buttons = document.querySelectorAll('button');
+let buttons = document.querySelectorAll('.buttons');
 let game = document.getElementById('game');
 let calculation = document.getElementById('calculation')
 let bar = document.getElementById('bar')
