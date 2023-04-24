@@ -139,3 +139,29 @@ p{
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
+
+  .pointsBubble{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    margin: 0;
+    width: 100%;
+    /* left: 50%; */
+    
+  }
+  .triggerBubbleAnimation {
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+    margin-top: -100px !important;
+    opacity: 0 !important;
+  }
+
+/* .hidden{
+    display: none;
+} */
+
+/* bubble */

@@ -4,6 +4,7 @@ let game = document.getElementById('game');
 let calculation = document.getElementById('calculation')
 let bar = document.getElementById('bar')
 let p = document.querySelector('p')
+let bubble = document.querySelector('.pointsBubble')
 //                                                          Buttons Event Listeners
 // https://fjolt.com/article/javascript-multiple-elements-addeventlistener
 
@@ -133,6 +134,7 @@ window.onkeydown = (e)=>{
   if (answer==e.key){
     takenTime = calculateTakenTime(barStartDate, barStopDate)
     points += calculatePoints(numberOfDigits, takenTime)
+    showBubble(points,'green')
     if (numberOfDigits>4){reachedMax=true} 
     else {numberOfDigits+=1};
     if (reachedMax){time-=0.05;}
@@ -154,3 +156,18 @@ const calculateTakenTime = function(startDate,stopDate){
 const calculatePoints = function(numOfDigits,takenTime){
   return numOfDigits/(takenTime/1000);
 }
+
+bubble.addEventListener('animationed',() => {
+  bubble.remove();  
+  alert('hee')
+})
+const showBubble = function(points,color){
+  // https://css-tricks.com/restart-css-animation/
+  bubble.classList.remove('triggerBubbleAnimation')
+  void bubble.offsetWidth;
+  bubble.innerText='+'+points.toFixed(2);
+  bubble.style.color=color;
+  bubble.classList.add('triggerBubbleAnimation')
+  
+}
+
