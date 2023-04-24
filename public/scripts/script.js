@@ -5,6 +5,7 @@ let calculation = document.getElementById('calculation')
 let bar = document.getElementById('bar')
 let p = document.querySelector('p')
 let bubble = document.querySelector('.pointsBubble')
+let pointsUI = document.querySelector('#pointsUI')
 //                                                          Buttons Event Listeners
 // https://fjolt.com/article/javascript-multiple-elements-addeventlistener
 
@@ -26,6 +27,7 @@ bar.addEventListener("timeOut", (e) => {
     alert('Loss!');
     alert(`points: ${points.toFixed(2)}`)
     points = 0;
+    setTotalPoints(0)
     time = initTime;
     numberOfDigits=initNmberOfDigits;
     newRound(time,numberOfDigits)
@@ -39,6 +41,7 @@ let barInterval;
 let barDate;
 let barStartDate;
 const startBar = function(seconds){
+  // console.log(seconds)
   bar.style.backgroundColor='green'
   bar.style.width='100%'
   let test = Date.now();
@@ -46,6 +49,7 @@ const startBar = function(seconds){
   barStartDate= Date.now();
   let originalWidth = bar.clientWidth;
   let decrement = originalWidth/(seconds);
+  if (decrement<0){decrement*=(-1.0)}
   // originalWidth -= originalWidth%decrement;
   let newWidth = originalWidth;
   let difference = 0;
@@ -55,7 +59,7 @@ const startBar = function(seconds){
       barDate += difference
       bar.style.width = `${newWidth-decrement}px`
       newWidth-=decrement
-      if (newWidth<=0) {
+      if (newWidth<=0 || originalWidth<0 || seconds < 0) {
         console.log(Date.now()-test)
         bar.style.backgroundColor='transparent'
         clearInterval(barInterval)
@@ -110,6 +114,7 @@ let numberOfDigits = initNmberOfDigits;
 let reachedMax = false;
 let takenTime = 0;
 let points = 0; //numberOfDigits * takenTime
+let totalpoints = 0;
 //                                                          New Round
 const newRound = function(time,numOfDigits ){
   startBar(time);
@@ -130,10 +135,15 @@ numbers.forEach((number,index)=>{
 p.innerText = pArray.join(' ')
 }
 window.onkeydown = (e)=>{
+if (!isRandom()){
+  if (time<0){bar.dispatchEvent('timeOut')}
   let barStopDate = Date.now();
+  points = 0;
   if (answer==e.key){
     takenTime = calculateTakenTime(barStartDate, barStopDate)
-    points += calculatePoints(numberOfDigits, takenTime)
+    
+    points = calculatePoints(numberOfDigits, takenTime)
+    setTotalPoints(totalpoints+points)
     showBubble(points,'green')
     if (numberOfDigits>4){reachedMax=true} 
     else {numberOfDigits+=1};
@@ -141,10 +151,15 @@ window.onkeydown = (e)=>{
   }
   else {
     time-=0.3;
+    points = -1
+    setTotalPoints(totalpoints+points)
+
+    showBubble(points,'red')
   }
 
   clearInterval(barInterval); 
   newRound(time,numberOfDigits); 
+}  
 
 }
 
@@ -162,12 +177,35 @@ bubble.addEventListener('animationed',() => {
   alert('hee')
 })
 const showBubble = function(points,color){
+  bubble.style.color=color;
+
   // https://css-tricks.com/restart-css-animation/
   bubble.classList.remove('triggerBubbleAnimation')
   void bubble.offsetWidth;
-  bubble.innerText='+'+points.toFixed(2);
-  bubble.style.color=color;
+  if (points>0){
+    bubble.innerText='+'+points.toFixed(2);
+
+  } else {
+    bubble.innerText=points.toFixed(2);
+
+  }
   bubble.classList.add('triggerBubbleAnimation')
   
 }
 
+const setTotalPoints = function(newTotalPoints){
+  totalpoints = newTotalPoints;
+  pointsUI.innerText = totalpoints.toFixed(2);
+}
+
+let lastClicked = Date.now();;
+const isRandom = function(){
+  let result = true;
+  let now = Date.now();
+  if (now-lastClicked>500){
+    result =  false;
+  }
+  lastClicked = now;
+  return result;
+  
+}
